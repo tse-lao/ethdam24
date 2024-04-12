@@ -74,3 +74,28 @@ export const fileToBase64 = (file: File): Promise<string> =>
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+
+  
+  export function beginEndDates(
+    beginDate: string | Date,
+    endDate?: string | Date
+  ): string {
+    // const lang = useDictionary();
+    // lang.beginEndDates.ongoing
+    if (!beginDate) {
+      return "No date";
+    }
+  
+    return endDate
+      ? `${formatDate(beginDate)} ~ ${formatDate(endDate)}`
+      : `${formatDate(beginDate)} ~ present`;
+  }
+  
+  export function formatDate(stringDate: string | Date): string {
+    const date = new Date(stringDate);
+  
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}.${month}.${day}`;
+  }

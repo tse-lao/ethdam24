@@ -33,10 +33,10 @@ export default async function ProfilePageCard() {
     <div className="flex flex-col">
       <ViewProfileCard  profile={profile} />
       <ProfileTabs
-        prelink="/mypage"
+        prelink="/me"
         links={links}
       >
-         <Link href="/mypage/edit"  passHref>
+         <Link href="/me/edit"  passHref>
             <Button size="sm">
                 Edit Profile
             </Button>

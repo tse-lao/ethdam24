@@ -16,7 +16,7 @@ export default async function MyPageLayout({
 
       <Suspense
         fallback={
-          <Skeleton className="h-24 grow shrink animate-pulse bg-background-layer-1" />
+          <Skeleton className="h-24 grow shrink animate-pulse bg-light" />
         }
       >
         <div className="mx-2 md:mx-10 ">{children}</div>

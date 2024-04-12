@@ -113,7 +113,7 @@ export function PackageTable<TData, TValue, hideColumn>({
           </DropdownMenu>
         )}
       </div>
-      <div className="rounded-md border border-border-div bg-background-layer-1">
+      <div className="rounded-md border border-border-div bg-light">
         <Table className="table">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

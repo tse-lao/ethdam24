@@ -5,20 +5,20 @@ import { signOut, useSession } from "next-auth/react";
 import { addURL, truncateMiddle } from "@/lib/utils";
 import { DropdownMenuSub } from "@radix-ui/react-dropdown-menu";
 import {
-    Copy,
-    Github,
-    LayoutDashboard,
-    LifeBuoy,
-    LogOut,
-    Mail,
-    MessageSquare,
-    Moon,
-    PlusCircle,
-    Settings,
-    User,
-    UserPlus,
-    Users,
-    Wallet,
+  Copy,
+  Github,
+  LayoutDashboard,
+  LifeBuoy,
+  LogOut,
+  Mail,
+  MessageSquare,
+  Moon,
+  PlusCircle,
+  Settings,
+  User,
+  UserPlus,
+  Users,
+  Wallet,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -31,16 +31,16 @@ import { Button } from "../ui/button";
 import { DEFAULT_AVATAR } from "@/lib/constants";
 import Link from "next/link";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { toast } from "../ui/use-toast";
@@ -139,16 +139,6 @@ export default function Login() {
                 />
               </div>
             </button>
-
-            {chain?.id != 314159 && chain?.id != 80001 && (
-              <Button
-                variant={"destructive"}
-                size="sm"
-                onClick={() => setShowModal(!showModal)}
-              >
-                Change Chain
-              </Button>
-            )}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[250px]">
@@ -159,13 +149,13 @@ export default function Login() {
                 <span>Public Profile</span>
               </DropdownMenuItem>
             </Link>
-            <Link href="/mypage" passHref>
+            <Link href="/me" passHref>
               <DropdownMenuItem className="group">
                 <LayoutDashboard className="mr-2 h-4 w-4 group-hover:text-accent-primary" />
                 <span>My Page</span>
               </DropdownMenuItem>
             </Link>
-            <Link href="/mypage/edit" passHref>
+            <Link href="/me/edit" passHref>
               <DropdownMenuItem className="group">
                 <Settings className="mr-2 h-4 w-4 group-hover:text-accent-primary" />
                 <span>Settings</span>

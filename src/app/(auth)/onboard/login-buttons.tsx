@@ -26,7 +26,7 @@ export default function LoginButtons({ text }: { text?: any }) {
     if (session && session.web3?.accessToken) {
       if (session.web3.address == address) {
         if (session.web3.user?.verified) {
-          redirect("/mypage");
+          redirect("/me");
         }
         redirect("/onboard/email");
       }
