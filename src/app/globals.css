@@ -264,4 +264,9 @@
     --tw-warning-box-shadow: 0 4px 14px 0 rgba(237, 137, 54, 0.39);
     --tw-dark-box-shadow: 0 4px 14px 0 rgba(45, 55, 72, 0.39);
   }
+  
+  /* Remove scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }

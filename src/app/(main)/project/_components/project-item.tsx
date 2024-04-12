@@ -18,17 +18,17 @@ export default function ProjectItem({ details }: { details: any }) {
             <Image
               src={`https://ipfs.io/ipfs/${details.image}`}
               alt={`Project ${details.name}`}
-              width={30}
-              height={30}
+              width={50}
+              height={50}
             />
           </figure>
           <div>{details.scope && <Badge>{details.scopre}</Badge>}</div>
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <h5 className="text-title_m text-text-primary">{details.name}</h5>
+          <h5 className="text-sm">{details.name}</h5>
           <span
-            className="h-[64px] overflow-auto block w-full text-text-secondary text-body_s whitespace-normal"
+            className="h-[64px] overflow-hidden block w-full max-w-full text-text-secondary text-2sm whitespace-normal"
             dangerouslySetInnerHTML={{
               __html: details.description
                 ? details.description
@@ -42,7 +42,7 @@ export default function ProjectItem({ details }: { details: any }) {
             details.tags?.map((tag: any) => (
               <Badge
                 key={tag}
-                className="text-label_s rounded-sm"
+                className="text-2xs rounded-sm"
               >
                 {tag}
               </Badge>
@@ -50,7 +50,7 @@ export default function ProjectItem({ details }: { details: any }) {
 
           {!details.tags && (
             <Badge
-              className="text-label_s rounded-sm"
+              className="text-2xs rounded-sm"
             >
               No Category
             </Badge>

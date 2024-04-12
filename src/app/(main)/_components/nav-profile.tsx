@@ -14,6 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { DEFAULT_AVATAR } from "@/lib/constants";
 import {
     LifeBuoy,
     LogOut,
@@ -44,7 +45,7 @@ export default function NavProfile() {
         <div className="flex items-center gap-2 rounded-md hover:scale-[0.98]	">
           <div className="relative w-[36px] h-[36px] rounded-full outline outline-1 outline-success">
             <Image
-              src={session.user?.avatar ? session.user.avatar : DEFAULT_AVATAR}
+              src={session.user?.image ? session.user.image : DEFAULT_AVATAR}
               alt="user"
               fill
               sizes={"36px"}
@@ -56,7 +57,7 @@ export default function NavProfile() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[250px]" align="end">
         <DropdownMenuGroup>
-          <Link href={`/profiles/${session.user.id}`} passHref>
+          <Link href={`/me`} passHref>
             <DropdownMenuItem className="group">
               <User className="mr-2 h-4 w-4 group-hover:text-primary" />
               <span>Public Profile</span>

@@ -1,5 +1,5 @@
-
 import { API_URL } from "@/lib/constants";
+import { getUserSession } from "@/lib/data/user";
 import {
     GetServerSidePropsContext,
     NextApiRequest,
@@ -14,8 +14,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import LinkedinProvider from "next-auth/providers/linkedin";
 import TwitterProvider from "next-auth/providers/twitter";
-import { getUserSession } from "./data/user";
-
 
 export const authOptions = {
   providers: [
@@ -56,7 +54,7 @@ export const authOptions = {
         address: { label: "Address", type: "text" },
       },
       authorize: async (credentials) => {
-        const res = await fetch(`${API_URL}/siwe/verify`, {
+        const res = await fetch(`${API_URL}/users/auth`, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: {
@@ -65,14 +63,12 @@ export const authOptions = {
           },
         });
 
-
         const user = await res.json();
-        console.log(res.ok)
-        console.log("userdata")
-        console.log(user);
-        if (res.ok && user) {
-          return Promise.resolve(user);
+
+        if (res.ok && user.data) {
+          return Promise.resolve(user.data);
         } else {
+          console.log(res.json());
           return Promise.reject(new Error("Invalid SIWE credentials"));
         }
       },
@@ -113,7 +109,7 @@ export const authOptions = {
           token.web3 = {
             user: { ...user.user, username: user.user.display_name },
             address: user.user.wallet,
-            accessToken: user.access_token,
+            accessToken: user.token,
           };
 
           return token;

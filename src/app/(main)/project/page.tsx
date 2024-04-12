@@ -10,7 +10,8 @@ import ProjectList from "./_components/project-list";
 
 export default async function ProjectListPage({
   searchParams,
-  params,
+  
+  
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
