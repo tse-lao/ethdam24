@@ -2,7 +2,7 @@
 pragma solidity 0.8.19;
 
 // External
-import {CREATE3} from "solady/utils/CREATE3.sol";
+import {CREATE3} from "../core/libraries/utils/CREATE3.sol";
 
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣗⠀⠀⠀⢸⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣗⠀⠀⠀⢸⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -88,12 +88,11 @@ contract ContractFactory {
     /// @param _version Version of the contract to deploy
     /// @param creationCode Creation code of the contract to deploy
     /// @return deployedContract Address of the deployed contract
-    function deploy(string memory _contractName, string memory _version, bytes memory creationCode)
-        external
-        payable
-        onlyDeployer
-        returns (address deployedContract)
-    {
+    function deploy(
+        string memory _contractName,
+        string memory _version,
+        bytes memory creationCode
+    ) external payable onlyDeployer returns (address deployedContract) {
         // hash salt with the contract name and version
         bytes32 salt = keccak256(abi.encodePacked(_contractName, _version));
 

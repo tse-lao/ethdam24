@@ -2,9 +2,9 @@
 pragma solidity 0.8.19;
 
 // External Libraries
-import "openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol";
-import "openzeppelin-contracts-upgradeable/contracts/proxy/utils/Initializable.sol";
-import {ERC20} from "solady/tokens/ERC20.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {ERC20} from "./libraries/tokens/ERC20.sol";
 // Interfaces
 import "./interfaces/IRegistry.sol";
 // Internal Libraries
@@ -152,7 +152,7 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
             revert UNAUTHORIZED();
         }
 
-        for (uint256 i; i < memberLength;) {
+        for (uint256 i; i < memberLength; ) {
             address member = _members[i];
 
             // Will revert if any of the addresses are a zero address
@@ -166,7 +166,14 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
         }
 
         // Emit the event that the profile was created
-        emit ProfileCreated(profileId, profile.nonce, profile.name, profile.metadata, profile.owner, profile.anchor);
+        emit ProfileCreated(
+            profileId,
+            profile.nonce,
+            profile.name,
+            profile.metadata,
+            profile.owner,
+            profile.anchor
+        );
 
         // Return the profile ID
         return profileId;
@@ -179,11 +186,10 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @param _profileId The profileId of the profile
     /// @param _name The new name of the profile
     /// @return anchor The new anchor
-    function updateProfileName(bytes32 _profileId, string memory _name)
-        external
-        onlyProfileOwner(_profileId)
-        returns (address anchor)
-    {
+    function updateProfileName(
+        bytes32 _profileId,
+        string memory _name
+    ) external onlyProfileOwner(_profileId) returns (address anchor) {
         // Generate a new anchor address
         anchor = _generateAnchor(_profileId, _name);
 
@@ -211,10 +217,10 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @dev 'msg.sender' must be the owner of the profile.
     /// @param _profileId The ID of the profile
     /// @param _metadata The new 'Metadata' of the profile
-    function updateProfileMetadata(bytes32 _profileId, Metadata memory _metadata)
-        external
-        onlyProfileOwner(_profileId)
-    {
+    function updateProfileMetadata(
+        bytes32 _profileId,
+        Metadata memory _metadata
+    ) external onlyProfileOwner(_profileId) {
         // Get the profile using the 'profileId' from the mapping and update the 'Metadata' value
         profilesById[_profileId].metadata = _metadata;
 
@@ -226,7 +232,10 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @param _profileId The ID of the profile
     /// @param _account The address to check
     /// @return 'true' if the address is an owner or member of the profile, otherwise 'false'
-    function isOwnerOrMemberOfProfile(bytes32 _profileId, address _account) external view returns (bool) {
+    function isOwnerOrMemberOfProfile(
+        bytes32 _profileId,
+        address _account
+    ) external view returns (bool) {
         return _isOwnerOfProfile(_profileId, _account) || _isMemberOfProfile(_profileId, _account);
     }
 
@@ -250,10 +259,10 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @dev 'msg.sender' must be the owner of the profile. [1]*This is step one of two when transferring ownership.
     /// @param _profileId The ID of the profile
     /// @param _pendingOwner The new pending owner
-    function updateProfilePendingOwner(bytes32 _profileId, address _pendingOwner)
-        external
-        onlyProfileOwner(_profileId)
-    {
+    function updateProfilePendingOwner(
+        bytes32 _profileId,
+        address _pendingOwner
+    ) external onlyProfileOwner(_profileId) {
         // Set the pending owner to the profile
         profileIdToPendingOwner[_profileId] = _pendingOwner;
 
@@ -286,11 +295,14 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @dev 'msg.sender' must be the owner of the profile.
     /// @param _profileId The ID of the profile
     /// @param _members The members to add
-    function addMembers(bytes32 _profileId, address[] memory _members) external onlyProfileOwner(_profileId) {
+    function addMembers(
+        bytes32 _profileId,
+        address[] memory _members
+    ) external onlyProfileOwner(_profileId) {
         uint256 memberLength = _members.length;
 
         // Loop through the members and add them to the profile by granting the role
-        for (uint256 i; i < memberLength;) {
+        for (uint256 i; i < memberLength; ) {
             address member = _members[i];
 
             // Will revert if any of the addresses are a zero address
@@ -308,11 +320,14 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @dev 'msg.sender' must be the pending owner of the profile.
     /// @param _profileId The ID of the profile
     /// @param _members The members to remove
-    function removeMembers(bytes32 _profileId, address[] memory _members) external onlyProfileOwner(_profileId) {
+    function removeMembers(
+        bytes32 _profileId,
+        address[] memory _members
+    ) external onlyProfileOwner(_profileId) {
         uint256 memberLength = _members.length;
 
         // Loop through the members and remove them from the profile by revoking the role
-        for (uint256 i; i < memberLength;) {
+        for (uint256 i; i < memberLength; ) {
             // Revoke the role from the member and emit the event for each member
             _revokeRole(_profileId, _members[i]);
             unchecked {
@@ -337,7 +352,10 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     /// @param _profileId The ID of the profile
     /// @param _name The name of the profile
     /// @return anchor The address of the deployed anchor contract
-    function _generateAnchor(bytes32 _profileId, string memory _name) internal returns (address anchor) {
+    function _generateAnchor(
+        bytes32 _profileId,
+        string memory _name
+    ) internal returns (address anchor) {
         bytes memory encodedData = abi.encode(_profileId, _name);
         bytes memory encodedConstructorArgs = abi.encode(_profileId, address(this));
 
@@ -346,14 +364,21 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
         bytes32 salt = keccak256(encodedData);
 
         address preComputedAddress = address(
-            uint160(uint256(keccak256(abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode)))))
+            uint160(
+                uint256(
+                    keccak256(
+                        abi.encodePacked(bytes1(0xff), address(this), salt, keccak256(bytecode))
+                    )
+                )
+            )
         );
 
         // Try to deploy the anchor contract, if it fails then the anchor already exists
         try new Anchor{salt: salt}(_profileId, address(this)) returns (Anchor _anchor) {
             anchor = address(_anchor);
         } catch {
-            if (Anchor(payable(preComputedAddress)).profileId() != _profileId) revert ANCHOR_ERROR();
+            if (Anchor(payable(preComputedAddress)).profileId() != _profileId)
+                revert ANCHOR_ERROR();
             anchor = preComputedAddress;
         }
     }
@@ -392,7 +417,9 @@ contract Registry is IRegistry, Initializable, Native, AccessControlUpgradeable,
     function recoverFunds(address _token, address _recipient) external onlyRole(ALLO_OWNER) {
         if (_recipient == address(0)) revert ZERO_ADDRESS();
 
-        uint256 amount = _token == NATIVE ? address(this).balance : ERC20(_token).balanceOf(address(this));
+        uint256 amount = _token == NATIVE
+            ? address(this).balance
+            : ERC20(_token).balanceOf(address(this));
         _transferAmount(_token, _recipient, amount);
     }
 }

@@ -51,7 +51,12 @@ interface IRegistry {
 
     /// @dev Emitted when a profile is created. This will return your anchor address.
     event ProfileCreated(
-        bytes32 indexed profileId, uint256 nonce, string name, Metadata metadata, address owner, address anchor
+        bytes32 indexed profileId,
+        uint256 nonce,
+        string name,
+        Metadata metadata,
+        address owner,
+        address anchor
     );
 
     /// @dev Emitted when a profile name is updated. This will update the anchor when the name is updated and return it.
@@ -84,22 +89,28 @@ interface IRegistry {
     /// @param _profileId The 'profileId' to check if the '_account' is a member or owner of
     /// @param _account The 'account' to check if they are a member or owner of the '_profileId' passed in
     /// @return isOwnerOrMemberOfProfile A boolean if the '_account' is a member or owner of the '_profileId' passed in
-    function isOwnerOrMemberOfProfile(bytes32 _profileId, address _account)
-        external
-        view
-        returns (bool isOwnerOrMemberOfProfile);
+    function isOwnerOrMemberOfProfile(
+        bytes32 _profileId,
+        address _account
+    ) external view returns (bool isOwnerOrMemberOfProfile);
 
     /// @dev Returns a boolean if the '_account' is an owner of the '_profileId' passed in
     /// @param _profileId The 'profileId' to check if the '_account' is an owner of
     /// @param _owner The 'owner' to check if they are an owner of the '_profileId' passed in
     /// @return isOwnerOfProfile A boolean if the '_account' is an owner of the '_profileId' passed in
-    function isOwnerOfProfile(bytes32 _profileId, address _owner) external view returns (bool isOwnerOfProfile);
+    function isOwnerOfProfile(
+        bytes32 _profileId,
+        address _owner
+    ) external view returns (bool isOwnerOfProfile);
 
     /// @dev Returns a boolean if the '_account' is a member of the '_profileId' passed in
     /// @param _profileId The 'profileId' to check if the '_account' is a member of
     /// @param _member The 'member' to check if they are a member of the '_profileId' passed in
     /// @return isMemberOfProfile A boolean if the '_account' is a member of the '_profileId' passed in
-    function isMemberOfProfile(bytes32 _profileId, address _member) external view returns (bool isMemberOfProfile);
+    function isMemberOfProfile(
+        bytes32 _profileId,
+        address _member
+    ) external view returns (bool isMemberOfProfile);
 
     /// ====================================
     /// ==== External/Public Functions =====
@@ -136,7 +147,10 @@ interface IRegistry {
     /// @param _profileId The 'profileId' to update the name for
     /// @param _name The new 'name' value
     /// @return anchor The new 'anchor' address
-    function updateProfileName(bytes32 _profileId, string memory _name) external returns (address anchor);
+    function updateProfileName(
+        bytes32 _profileId,
+        string memory _name
+    ) external returns (address anchor);
 
     /// @dev Updates the 'Metadata' of the '_profileId' passed in
     ///
