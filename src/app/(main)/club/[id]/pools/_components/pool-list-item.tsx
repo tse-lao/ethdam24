@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { smallDate } from "@/lib/utils";
-import { Abstract10 } from "detechies-icons";
+import Image from "next/image";
 
 export interface PoolListItemProps {
   status: string;
@@ -23,7 +23,7 @@ export default function PoolListItem({
       <CardContent className="flex flex-col gap-[30px]">
         <div className="flex justify-between items-center">
           <div className="w-[50px] h-[50px] flex items-center justify-center bg-gray-100 rounded-md">
-            <Abstract10 fontSize="24px" />
+            <Image src="/drop-icon.png" alt="pool" width={30} height={30} />
           </div>
           <Badge variant={"success"}>{details.status}</Badge>
         </div>
@@ -42,7 +42,7 @@ export default function PoolListItem({
           </div>
         </div>
         <div>
-          <Progress value={details.total} max={100} className="bg-primary" />
+          <Progress value={details.total} max={100} />
         </div>
       </CardContent>
     </Card>

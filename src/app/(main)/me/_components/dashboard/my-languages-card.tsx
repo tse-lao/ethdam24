@@ -21,7 +21,7 @@ export default async function MyLanguagesCard({
               <Badge
                 key={index}
                 className="flex flex-col gap-2 p-3 content-center items-center"
-                variant="accent"
+                variant="secondary"
               >
                 {language.name}
               </Badge>

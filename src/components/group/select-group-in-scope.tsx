@@ -74,7 +74,7 @@ export default function SelectGroupInScope({
             }
           })}
 
-        {!loading && myGroups?.length < 1 && <div>가입된 그룹이 없습니다.</div>}
+        {!loading && myGroups?.length < 1 && <div>No groups found.</div>}
       </div>
 
       <div className="flex justify-center gap-2">

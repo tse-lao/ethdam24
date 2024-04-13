@@ -3,10 +3,10 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const badgeVariants = cva("flex flex-row items-center", {
+const badgeVariants = cva("flex flex-row items-center text-2xs", {
   variants: {
     variant: {
-      default: "bg-light text-2xs",
+      default: "bg-light text-2xs  font-medium",
       info: "border-state-info bg-state-info-secondary text-state-info hover:bg-info/80",
       accent:
         "border-primary bg-secondary text-primary hover:bg-accent/80",
@@ -15,7 +15,7 @@ const badgeVariants = cva("flex flex-row items-center", {
       warning:
         "border-state-warning bg-state-warning-secondary text-state-warning",
       placeholder: "border-border-input text-text-placeholder",
-      secondary: "bg-button-secondary",
+      secondary: "bg-gray-200 text-gray-700",
       tertiary:
         "text-type-purple-primary bg-type-purple-secondary hover:bg-type-purple-secondary/80",
       purple:
