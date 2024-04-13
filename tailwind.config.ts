@@ -156,6 +156,9 @@ const config = {
         'md': ['0.9375rem', {  // 15px
           lineHeight: '1.375rem' // 22px
         }],
+        '2md': ['1.1', { // 16
+          lineHeight: '1.1rem' // 16
+        }],
         lg: ['1.125rem', { // 18px
           lineHeight: '1.125rem' // 26px
         }],

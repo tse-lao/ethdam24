@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 const badgeVariants = cva("flex flex-row items-center", {
   variants: {
     variant: {
-      default: "bg-light text-text-primary text-sm",
+      default: "bg-light text-2xs",
       info: "border-state-info bg-state-info-secondary text-state-info hover:bg-info/80",
       accent:
         "border-primary bg-secondary text-primary hover:bg-accent/80",
       success:
-        "border-state-success bg-state-success text-state-success",
+        "border border-success-clarity bg-success-light text-success",
       warning:
         "border-state-warning bg-state-warning-secondary text-state-warning",
       placeholder: "border-border-input text-text-placeholder",
@@ -29,7 +29,7 @@ const badgeVariants = cva("flex flex-row items-center", {
     },
     shape: {
       default:
-        "rounded-[6px] p-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+        "rounded-[6px] p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
       md: "py-2 px-2.5 rounded-md text-sm",
       sm: "py-2 px-2.5 rounded-md text-label_s",
       category:

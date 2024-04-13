@@ -19,8 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider>
+      <body className={`${inter.className} bg-light-light text-base text-gray-800`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <App>{children}</App>
           <Toaster />
         </ThemeProvider>

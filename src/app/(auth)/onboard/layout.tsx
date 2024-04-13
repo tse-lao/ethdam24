@@ -1,38 +1,18 @@
-import type { Metadata } from "next";
 
-import "../../globals.css";
 
-import App from "@/app/app";
-import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/lib/theme-provider";
-import { Suspense } from "react";
+import { Card } from "@/components/ui/card";
 
-export const metadata: Metadata = {
-  title: "Drop Some Money",
-  description:
-    "It's now or never, time to drop some money, from one project to another",
-  keywords:
-    "developers, freelancers, profiles, tech, software, web, mobile, blockchain, projects, achievements, edutech",
-};
-
-export default async function RootLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem={true}
-      disableTransitionOnChange={true}
-    >
-      <Suspense fallback={<span>loading...</span>}>
-        <App>
-          {children}
-          <Toaster />
-        </App>
-      </Suspense>
-    </ThemeProvider>
+    
+    <main className="h-screen w-screen bg-auth-background dark:bg-dark-auth-background bg-center bg-cover flex justify-center items-center">
+      <Card className=" mx-auto my-auto p-10 w-fit rounded-md border flex flex-col gap-[30px] ">
+        {children}
+      </Card>
+    </main>
   );
 }

@@ -1,8 +1,7 @@
-
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 
-import ProfilePageCard from "./_components/profile-page-card";
+import ProfilePageCard from "./projects/profile-page-card";
 export default async function MyPageLayout({
   children,
 }: {
@@ -11,9 +10,8 @@ export default async function MyPageLayout({
   return (
     <div className="flex flex-col gap-4 md:gap-10 ">
       <Suspense fallback={<span>Loading</span>}>
-        <ProfilePageCard  />
+        <ProfilePageCard />
       </Suspense>
-
       <Suspense
         fallback={
           <Skeleton className="h-24 grow shrink animate-pulse bg-light" />

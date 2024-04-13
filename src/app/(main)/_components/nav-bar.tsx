@@ -21,6 +21,18 @@ export default function Navbar() {
       name: "Project",
       href: `/project`,
     },
+    {
+      name: "Packages",
+      href: `/packages`,
+    },
+    {
+      name: "Clubs", 
+      href: `/club`,
+    },
+    {
+      name: "Me",
+      href: `/me`,
+    },
   ];
 
   //here we can check if the user is onboarded or not if not, we redirect it to the onboarding page.

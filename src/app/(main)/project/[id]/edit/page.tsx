@@ -9,7 +9,7 @@ import ProjectEditForm from "./_components/project-edit-form";
 export default async function ProjectEditPage({ params }: { params: any }) {
   //first get the whole project form.
 
-  const {data: projectData} = await serverApi(`/projects/${params.address}`);
+  const {data: projectData} = await serverApi(`/projects/${params.id}`);
 
   return (
     <main className="w-full mx-auto flex flex-col gap-md">
@@ -24,7 +24,7 @@ export default async function ProjectEditPage({ params }: { params: any }) {
         </CardContent>
       </Card>
     
-      <EditProjectSource projectId={params.address}/>
+      <EditProjectSource projectId={params.id}/>
       <Card>
         <CardHeader>
           <h4>

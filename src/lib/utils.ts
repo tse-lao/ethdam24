@@ -99,3 +99,18 @@ export const fileToBase64 = (file: File): Promise<string> =>
     const year = date.getFullYear();
     return `${year}.${month}.${day}`;
   }
+  
+  export function smallDate(inputDate: string): string {
+    const date = new Date(inputDate);
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
+  
+    const day = date.getDate().toString().padStart(2, '0');
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear().toString().slice(-2);
+  
+    return `${day} ${month} ${year}`;
+  }
+  
