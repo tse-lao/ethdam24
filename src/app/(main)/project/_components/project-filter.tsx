@@ -3,17 +3,8 @@
 
 
 import Searchbar from "@/components/extra/search-bar";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 export default function ProjectFilter() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const [showAdvanced, setShowAdvanced] = useState(false);
-
-
 
 
 
