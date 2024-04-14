@@ -1,4 +1,5 @@
-import { tables } from "@/constants/tableland-tables"
+
+import { tables } from "@/constants/TablelandTables"
 import { getTableland } from "@/lib/tableland"
 
 export default function ClubPage() {

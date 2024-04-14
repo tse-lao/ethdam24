@@ -38,7 +38,7 @@ export default async function Chat({topic}: {topic: string}) {
       <PageHeader title="Chat" subtitle="Chat with other users" />
 
       <CreatePost contentTopic={topic} />
-      {response.messages.map((message: any, index: number) => (
+      {response?.messages && response.messages.map((message: any, index: number) => (
         <Post key={index} details={message} />
       ))}
     </div>
