@@ -7,7 +7,7 @@ import FinishedProfile from "./_components/finished-profile";
 export default async function EmailVerify() {
   //reda here the lang and the dictionary
 
-  const { data: user } = await serverApi('users/me');
+  const { data: user } = await serverApi('/users/me');
 
   return (
     <div>
