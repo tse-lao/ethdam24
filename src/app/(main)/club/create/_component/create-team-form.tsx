@@ -26,7 +26,17 @@ import { uploadContent } from "@/lib/upload";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { useAccount, usePublicClient, useWalletClient } from "wagmi";
+import { MACI_REGISTRY_ABI, MACI_REGISTRY } from "@/constants/contracts";
+
 export const CreateTeamForm = () => {
+  const { address: account } = useAccount();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useWalletClient();
+  const [groupbMetadata, setClubMetadata] = useState({
+    name: "",
+    metadataURL: "",
+  });
   // --- Text & Labels ---
   type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
@@ -35,6 +45,43 @@ export const CreateTeamForm = () => {
     description: "",
   };
 
+  const createClub = async () => {
+      try {
+        const data = await publicClient?.simulateContract({
+          account,
+          address: MACI_REGISTRY,
+          abi: MACI_REGISTRY_ABI,
+          functionName: "createProfile",
+          args: [
+            groupbMetadata.name,
+            [
+              BigInt(1),
+              groupbMetadata.metadataURL,
+            ],
+          ],
+        });
+        console.log(data);
+        if (!walletClient) {
+          console.log("Wallet client not found");
+          return;
+        }
+        // @ts-ignore
+        const hash = await walletClient.writeContract(data.request);
+        console.log("Transaction Sent");
+        const transaction = await publicClient.waitForTransactionReceipt({
+          hash: hash,
+        });
+        toast({
+          title: "club Created",
+          description: "DAO club created successfully",
+          duration: 9000,
+        });
+        console.log(transaction);
+      } catch (error) {
+        console.log(error);
+      }
+    
+  };
   const profileFormSchema = z.object({
     //   certification_number: z.string().refine((data) => data === code, {
     //    message: "Invalid code",

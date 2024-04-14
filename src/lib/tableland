@@ -1,0 +1,21 @@
+import axios from "axios";
+import { tables } from "@/constants/TablelandTables";
+const TablelandGateway =
+  "https://testnets.tableland.network/api/v1/query?statement=";
+
+export const getAllClubs = async () => {
+  const getAllSchemasQuery =
+    TablelandGateway +
+    `SELECT
+         *
+      FROM
+          ${tables.profiles}`;
+
+  try {
+    const result = await axios.get(getAllSchemasQuery);
+    return result.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
