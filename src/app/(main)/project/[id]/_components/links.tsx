@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Icon } from "detechies-icons";
 import { File } from "lucide-react";
 import Link from "next/link";
 
@@ -22,7 +22,9 @@ const Links = ({ works }: { works: any[] }) => {
                     <File className="text-text-primary" />
                   </div>
 
-                  <div className="overflow-auto truncate text-title_s">{work.name}</div>
+                  <div className="overflow-auto truncate text-title_s">
+                    {work.name}
+                  </div>
                 </div>
               </Link>
             );
@@ -31,28 +33,14 @@ const Links = ({ works }: { works: any[] }) => {
           return (
             <Link
               key={index}
-              className="flex items-center gap-4 py-3 overflow-auto border-b-2 border-border-div hover:text-text-secondary"
+              className="flex items-center gap-4 py-3 overflow-auto text-gray-700 hover:text-gray-900"
               href={work.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="flex items-center justify-center p-2 rounded-full w-9 h-9 bg-background-layer-2">
-                {site === "unknown" ? (
-                  <File className="text-text-primary" />
-                ) : (
-                  <Avatar>
-                    <AvatarImage
-                      src={`/icons/${site}.png`}
-                      className="w-5 h-5 m-auto scale-down"
-                    />
-                  </Avatar>
-                )}
-              </div>
-              <div className="flex flex-col gap-1 truncate">
-              <span className="truncate text-title_s">{work.name}</span>
+              <Icon fontSize="16" />
+
               <span className="truncate text-label_s">{work.link}</span>
-                
-              </div>
             </Link>
           );
         })}

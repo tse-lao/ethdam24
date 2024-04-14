@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message Vote {
-  bool isUpvote = 1;
-  uint64 timestamp = 2;
-  string cId = 3;
-  string userSignature = 4;
-}

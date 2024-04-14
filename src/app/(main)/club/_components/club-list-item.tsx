@@ -27,7 +27,7 @@ export default function ClubListItem({
   });
   return (
     <Link href={`/club/${details.id}`} passHref>
-      <Card className="flex border hover:scale-[0.98] transition-transform duration-200">
+      <Card className="flex border hover:scale-[0.98] transition-transform duration-200 ">
         <section className="flex flex-col items-center justify-center gap-4 text-center p-4">
           <Avatar className="w-[60x] h-[60px] p-[18px] mx-auto ">
             <AvatarImage

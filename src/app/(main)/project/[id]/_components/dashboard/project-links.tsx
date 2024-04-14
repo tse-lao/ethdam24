@@ -4,7 +4,7 @@
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { serverApi } from "@/lib/data/server-api";
-import { Github, VerifiedIcon } from "lucide-react";
+import { Github, Verify } from "detechies-icons";
 import Link from "next/link";
 import Links from "../links";
 import ImportGithubData from "./import-github-data";
@@ -32,10 +32,8 @@ export default async function ProjectLinks({
         {projectSources &&
           projectSources.length > 0 &&
           projectSources.map((source: any, index: number) => (
-            <div key={index} className="flex flex-wrap gap-4 items-center py-2">
-              <div className="rounded-full h-8 w-8 bg-background-layer-2 flex items-center justify-center">
-                <Github  fontSize={24} />
-              </div>
+            <div key={index} className="flex flex-wrap text-gray-700 hover:text-gray-900 gap-4 items-center py-2">
+              <Github fontSize="16" />
               <Link
                 href={`https://github.com/${source.platform_id}`}
                 className="text-sm"
@@ -45,7 +43,7 @@ export default async function ProjectLinks({
               </Link>
 
               {source.contributors && source.contributors?.length > 0 ? (
-                <VerifiedIcon className="text-state-success" size="24" />
+                <Verify color="#1B84FF" fontSize="16" />
               ) : (
                 <ImportGithubData sourceId={source.id} repoName={source.platform_id} />
               )}

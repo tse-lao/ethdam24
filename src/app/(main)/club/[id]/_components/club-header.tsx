@@ -41,7 +41,7 @@ export default async function ClubHeader({
     <div className="">
       <header className=" gap-10 justify-center text-center 	bg-[url('/hexagon-header.png')] bg-auto bg-no-repeat bg-center  ">
         <div className="flex flex-col gap-3.5 mx-auto  py-10">
-          <div className="mx-auto h-[100px] w-[100px] rounded-full relative border-2 border-accent-primary  bg-background-layer-2">
+          <div className="mx-auto h-[100px] w-[100px] bg-light-clarity rounded-full relative border-2 border-primary">
             <Image
               src={addURL(clubDetails.image)}
               sizes={"32"}

@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-message Thread {
-  uint64 timestamp = 1;
-  string message = 2;
-  string sign = 3;
-}

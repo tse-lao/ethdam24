@@ -30,7 +30,7 @@ export async function serverApi(endpoint: string, searchParams?: any) {
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    return null;
+    return response.json();
   }
 
   return response.json();

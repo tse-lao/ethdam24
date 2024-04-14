@@ -5,14 +5,11 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 export default function ProjectItem({ details }: { details: any }) {
-  const truncateText = (text: string, maxLength: number): string => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
-  };
+
 
   return (
     <Link href={`/project/${details.id}`}>
-      <Card className="flex flex-col items-start w-full p-[30px] gap-md hover:scale-[0.98] transition-transform duration-200">
+      <Card className="flex flex-col items-start w-full p-[30px] gap-10 hover:scale-[0.98] transition-transform duration-200">
         <div className="flex flex-row justify-between items-center gap-3 w-full ">
           <figure className="overflow-hidden shrink-0 relative object-scale-down w-[50px] h-[50px] rounded-sm aspect-square flex justify-center items-center bg-background-layer-2">
             <Image
@@ -22,13 +19,13 @@ export default function ProjectItem({ details }: { details: any }) {
               height={50}
             />
           </figure>
-          <div>{details.scope && <Badge>{details.scopre}</Badge>}</div>
+          <div>{details.scope && <Badge variant={"success"}>{details.scope}</Badge>}</div>
         </div>
 
         <div className="flex flex-col gap-2.5">
           <h5 className="text-sm">{details.name}</h5>
           <span
-            className="h-[64px] overflow-hidden block w-full max-w-full text-text-secondary text-2sm whitespace-normal"
+            className="h-[64px] overflow-hidden block w-full max-w-full text-gray-600 text-2sm whitespace-normal"
             dangerouslySetInnerHTML={{
               __html: details.description
                 ? details.description
@@ -37,12 +34,12 @@ export default function ProjectItem({ details }: { details: any }) {
           ></span>
         </div>
 
-        <div className="flex overflow-scroll gap-3 justify-self-end">
+        <div className="flex overflow-scroll w-full gap-3">
           {details.tags &&
             details.tags?.map((tag: any) => (
               <Badge
                 key={tag}
-                className="text-2xs rounded-sm"
+                variant={"success"}
               >
                 {tag}
               </Badge>
@@ -50,7 +47,7 @@ export default function ProjectItem({ details }: { details: any }) {
 
           {!details.tags && (
             <Badge
-              className="text-2xs rounded-sm"
+              variant="info"
             >
               No Category
             </Badge>

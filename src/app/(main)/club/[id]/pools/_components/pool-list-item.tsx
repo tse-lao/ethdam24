@@ -19,7 +19,7 @@ export default function PoolListItem({
   details: PoolListItemProps;
 }) {
   return (
-    <Card>
+    <Card className="hover:scale-[1.01] cursor-pointer hover:border-b-primary hover:border-b-2">
       <CardContent className="flex flex-col gap-[30px]">
         <div className="flex justify-between items-center">
           <div className="w-[50px] h-[50px] flex items-center justify-center bg-gray-100 rounded-md">
