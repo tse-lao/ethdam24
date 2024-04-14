@@ -9,7 +9,7 @@ import {IRegistry} from "../../../core/interfaces/IRegistry.sol";
 // Internal Libraries
 import {Metadata} from "../../../core/libraries/Metadata.sol";
 
-contract Errors {
+contract Events_Errors {
     // Errors
     error OnlyMaciCanRegisterVoters();
     error NotCoordinator();
