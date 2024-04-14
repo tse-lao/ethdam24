@@ -25,13 +25,10 @@ export default function ProjectItem({ details }: { details: any }) {
         <div className="flex flex-col gap-2.5">
           <h5 className="text-sm">{details.name}</h5>
           <span
-            className="h-[64px] overflow-hidden block w-full max-w-full text-gray-600 text-2sm whitespace-normal"
-            dangerouslySetInnerHTML={{
-              __html: details.description
-                ? details.description
-                : "No introduction yet.",
-            }}
-          ></span>
+            className="h-[64px] overflow-auto block w-fit  text-gray-600 text-2sm  text-wrap"
+          >
+            {details.description}
+          </span>
         </div>
 
         <div className="flex overflow-scroll w-full gap-3">

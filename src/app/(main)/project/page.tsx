@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/ui/page-header";
 import Link from "next/link";
 
+import ProjectFilter from "./_components/project-filter";
 import ProjectList from "./_components/project-list";
 
 export default async function ProjectListPage({
@@ -23,6 +24,7 @@ export default async function ProjectListPage({
           <Button className="btn btn-primary">Add Project</Button>
         </Link>
         </PageHeader>
+        <ProjectFilter />
       <Suspense fallback={<span>Loading..</span>}>
         <ProjectList  searchParams={searchParams} />
       </Suspense>

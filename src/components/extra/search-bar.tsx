@@ -33,6 +33,12 @@ export default function Searchbar({
         params[key] = value;
       }
     });
+    
+    if (text) {
+      params.search = text;
+    } else {
+      delete params.search;
+    }
 
 
     const queryString = new URLSearchParams(params).toString();
