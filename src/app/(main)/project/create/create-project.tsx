@@ -165,7 +165,7 @@ export default function CreateProjectForm({ prefilled }: { prefilled: any }) {
     }
 
     // Create the project
-    const result = await postServer('projects',JSON.stringify({
+    const result = await postServer('/projects',JSON.stringify({
       image: data.image,
       name: formattedName,
       description: data.description,
