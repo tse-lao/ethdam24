@@ -13,11 +13,14 @@ export default function SimilarityDialog({
         <Badge variant="success" className="text-center">
           {(projectMatch?.similarity_score
             ? projectMatch.similarity_score
-            : Math.random() * 100
+            : 60
           ).toFixed(2)}
         </Badge>
       </DialogTrigger>
-      <DialogContent>{JSON.stringify(projectMatch, null, 2)}</DialogContent>
+      <DialogContent>{projectMatch ? JSON.stringify(projectMatch, null, 2) : 
+        "No similarity data found"
+      
+      }</DialogContent>
     </Dialog>
   );
 }

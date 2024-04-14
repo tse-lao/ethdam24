@@ -8,6 +8,8 @@ import ClubListItem from "./club-list-item";
 export default async function ClubList() {
   
   const {data:groups} = await serverApi('/clubs');
+  
+
 
   return (
     <div>

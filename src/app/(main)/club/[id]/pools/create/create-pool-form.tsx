@@ -14,71 +14,43 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-
 import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 
 import MediaUploader from "@/components/extra/media-uploader";
-import { postServer } from "@/lib/data/post-api";
-import { uploadContent } from "@/lib/upload";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { MACI_REGISTRY, MACI_REGISTRY_ABI } from "@/constants/contracts";
-import { Address, useAccount, usePublicClient, useWalletClient } from "wagmi";
+import {
+  Address,
+  useAccount,
+  useContractRead,
+  usePublicClient,
+  useWalletClient,
+} from "wagmi";
 
-export const CreateTeamForm = () => {
+export const CreatePool = ({ profileId }: { profileId: string }) => {
   const { address: account } = useAccount();
   const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
-  type ProfileFormValues = z.infer<typeof profileFormSchema>;
-  
 
+  const { data: maciTime } = useContractRead({
+    address: MACI_REGISTRY,
+    abi: MACI_REGISTRY_ABI,
+    functionName: "getTime",
+  });
+
+  // --- Text & Labels ---
+  type ProfileFormValues = z.infer<typeof profileFormSchema>;
+
+  // This can come from your database or API.
   const defaultValues: Partial<ProfileFormValues> = {
     description: "",
   };
 
-  const createClub = async (name:string, cid:string) => {
-    try {
-      const data = await publicClient?.simulateContract({
-        account,
-        address: MACI_REGISTRY,
-        abi: MACI_REGISTRY_ABI,
-        functionName: "createProfile",
-        args: [
-          name,
-          [
-            BigInt(1),
-            cid,
-          ] as any,
-          [
-            account as Address
-          ]
-        ],
-      });
-      console.log(data);
-      if (!walletClient) {
-        console.log("Wallet client not found");
-        return;
-      }
-      // @ts-ignore
-      const hash = await walletClient.writeContract(data.request);
-      console.log("Transaction Sent");
-      const transaction = await publicClient.waitForTransactionReceipt({
-        hash: hash,
-      });
-      toast({
-        title: "club Created",
-        description: "DAO club created successfully",
-        duration: 9000,
-      });
-      console.log(transaction);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const profileFormSchema = z.object({
     //   certification_number: z.string().refine((data) => data === code, {
     //    message: "Invalid code",
@@ -108,49 +80,81 @@ export const CreateTeamForm = () => {
   // Dialog
   const [requestedCreate, onRequestedCreate] = useState(false);
 
+  //bigint to int
+  
   async function onSubmit(data: ProfileFormValues) {
-    setIsLoading(true);
+    if(maciTime === undefined){
 
-    let image = "" as any;
-
-    if (icon) {
-      image = await uploadContent(icon);
-    }
-
-    //const urls = data?.urls?.map((url) => url.value);
-
-    const result = await postServer('/clubs', JSON.stringify({
-      image: image,
-      name: data.name,
-      description: data.description,
-      type: "dao",
-      urls: [],
-    }));
-
-    if (result.status === "success") {
       toast({
-        title: "Success",
-        description: "Group created successfully",
-      });
-      //
-      
-      await createClub(data.name, result.data.id);
-      router.push(`/club/${result.data.id}`);
-    } else {
-      if (!result.ok) {
-        if (result.messageCode === "group_name_already_exists") {
-          toast({
-            description: "Group name already exists",
-          });
-        } else {
-          toast({
-            description: result.message,
-          });
-        }
+        title: "Error",
+        description: "MACI Time not found",
+      })
+      return
+    }
+    //bigint to int
+    const poolManagers = [
+      {
+        address: account as Address,
+        allocation: BigInt(100),
+      },
+    ];
 
-        setIsLoading(false);
+    const poolParams = {
+      registryGating: false,
+      metadataRequired: true,
+      reviewThreshold: BigInt(1),
+      registrationStartTime: maciTime + BigInt(100),
+      registrationEndTime: maciTime + BigInt(200),
+      allocationStartTime: maciTime + BigInt(200),
+      allocationEndTime: maciTime + BigInt(500),
+      maxVoiceCreditsPerAllocator: BigInt(100),
+      coordinator: account as Address,
+      coordinatorPubKey: {
+        x: BigInt(
+          "21888242871839275222246405745257275088548364400416034343698204186575808495611"
+        ),
+        y: BigInt(
+          "21888242871839275222246405745257275088548364400416034343698204186575808495611"
+        ),
+      },
+    };
+
+    try {
+      const data = await publicClient?.simulateContract({
+        account,
+        address: MACI_REGISTRY,
+        abi: MACI_REGISTRY_ABI,
+        functionName: "createQVMaciPool",
+        args: [
+          profileId as Address,
+          poolParams,
+          "0x8d573a4EBe0AC93d9cBCF1A3046C91DbF2ADD45A" as Address,
+          BigInt(0),
+          {
+            protocol: BigInt(1),
+            pointer: "test pool metadata",
+          },
+          [account as Address],
+        ],
+      });
+
+      if (!walletClient) {
+        console.log("Wallet client not found");
         return;
       }
+      // @ts-ignore
+      const hash = await walletClient.writeContract(data.request);
+      console.log("Transaction Sent");
+      const transaction = await publicClient.waitForTransactionReceipt({
+        hash: hash,
+      });
+      toast({
+        title: "Pool Created",
+        description: "Created pool  created successfully",
+      });
+      console.log(transaction);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -232,7 +236,6 @@ export const CreateTeamForm = () => {
               </MediaUploader>
             </FormInlineItem>
           </div>
-
 
           <div className="flex items-center justify-end gap-2">
             <Button

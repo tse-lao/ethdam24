@@ -6,12 +6,13 @@ import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
 import { SessionProvider } from "next-auth/react";
-import { WagmiConfig, configureChains, createConfig, sepolia } from "wagmi";
+import { arbitrumSepolia } from "viem/chains";
+import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [sepolia],
+  [arbitrumSepolia],
   [publicProvider()]
 );
 
